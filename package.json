@@ -1,0 +1,15 @@
+{
+  "name": "white-label-store",
+  "version": "1.0.0",
+  "description": "A store that can be built around any product",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "author": "Roman Blumovich",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
