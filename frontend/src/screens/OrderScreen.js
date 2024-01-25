@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Row, Col, ListGroup, Image, Button, Card } from 'react-bootstrap'
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { useGetOrderDetailsQuery } from '../slices/ordersApiSlices'
+import { useGetOrderDetailsQuery, usePayOrderMutation, useGetPayPalClientIdQuery } from '../slices/ordersApiSlices'
+import { toast } from 'react-toastify'
 
 const OrderScreen = () => {
     const { id:orderId } = useParams()
@@ -60,7 +62,15 @@ const OrderScreen = () => {
                             <ListGroup.Item key={index}>
                                 <Row>
                                     <Col md={1}>
-                                        
+                                        <Image src={item.image} alt={item.name} fluid rounded />                                        
+                                    </Col>
+                                    <Col>
+                                        <Link to={`/product/${item.product}`}>
+                                            {item.name}
+                                        </Link>
+                                    </Col>
+                                    <Col md={4}>
+                                        {item.qty} x ${item.price} = ${item.qty * item.price}
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
@@ -69,7 +79,33 @@ const OrderScreen = () => {
                 </ListGroup>
             </Col>
             <Col md={4}>
-                Column
+                <Card>
+                    <ListGroup>
+                        <ListGroup.Item>
+                            <h2>Order Summary: </h2>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Row>
+                                <Col>Items</Col>
+                                <Col>${order.itemsPrice}</Col>
+                            </Row>
+                            <Row>
+                                <Col>Shipping</Col>
+                                <Col>${order.shippingPrice}</Col>
+                            </Row>
+                            <Row>
+                                <Col>Tax</Col>
+                                <Col>${order.taxPrice}</Col>
+                            </Row>
+                            <Row>
+                                <Col>Total</Col>
+                                <Col>${order.totalPrice}</Col>
+                            </Row>
+                        </ListGroup.Item>
+                        { /* Pay order placeholder */}
+                        { /* Mark as delivered */}
+                    </ListGroup>
+                </Card>
             </Col>  
         </Row>
     </>)

@@ -55,7 +55,7 @@ const LoginScreen = () => {
                 { isLoading && <Loader/>}
             </Form.Group>
 
-            <Row className='py-3'>
+            <Row className='py-3'> 
                 <Col>
                     New Customer? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link>
                 </Col>
